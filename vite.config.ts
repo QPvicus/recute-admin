@@ -34,7 +34,6 @@ export default ({command}: ConfigEnv):UserConfig  => {
 			}
 		},
 		build: {
-			target: '2015',
 			outDir: 'dist',
 			//  类似于压缩代码 Minify
 			terserOptions: {
