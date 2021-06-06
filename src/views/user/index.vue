@@ -1,13 +1,12 @@
 <!--
  * @Author: Taylor Swift
- * @Date: 2021-06-05 14:17:13
- * @LastEditTime: 2021-06-05 22:05:06
+ * @Date: 2021-06-06 19:43:19
+ * @LastEditTime: 2021-06-06 19:43:42
  * @Description:
 -->
 
 <template>
-  <h1 class="">This is Page home</h1>
-  <div class="relative"></div>
+  <h1>This is a User Page</h1>
 </template>
 
 <script lang="ts">

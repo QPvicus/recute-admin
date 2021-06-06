@@ -4,22 +4,23 @@ import App from './App.vue'
 import 'virtual:windi.css'
 import '/@/style/index.less'
 import { setupStore } from './store'
-import router, { setupRouter } from './router'
+import router, { createRoute, setupRouter } from './router'
 import { setupAntd } from './AntdPlugin'
 if (import.meta.env.DEV) {
-	import('ant-design-vue/dist/antd.less')
+  import('ant-design-vue/dist/antd.less')
 }
 
 ;(async () => {
-	const app = createApp(App)
+  const app = createApp(App)
 
-	setupAntd(app)
-	// configure store
-	setupStore(app)
+  setupAntd(app)
+  // configure store
+  setupStore(app)
 
-	setupRouter(app)
-
-	await router.isReady()
-
-	app.mount('#app')
+  setupRouter(app)
+  //  等到路哟初始化完成  挂在元素上面
+  await router.isReady()
+  // 将路由添加到 状态管理李米娜
+  await createRoute()
+  app.mount('#app')
 })()
