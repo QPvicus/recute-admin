@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-06-07 14:07:46
+ * @LastEditTime: 2021-06-07 19:22:31
  * @Description:
  */
 
@@ -29,7 +29,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '/index',
-        name: 'Home',
+        name: 'Home-index',
         component: () => import('/@/views/index/index.vue'),
         meta: {
           title: '工作台',

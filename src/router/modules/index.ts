@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-06 14:57:09
- * @LastEditTime: 2021-06-07 14:04:39
+ * @LastEditTime: 2021-06-07 19:22:21
  * @Description:
  */
 import type { RouteRecordRaw } from 'vue-router'
@@ -48,7 +48,7 @@ const asyncRoute: RouteRecordRaw[] = [
     children: [
       {
         path: 'index',
-        name: 'Post',
+        name: 'Post-index',
         component: () => import('/@/views/post/index.vue'),
         meta: {
           title: '职位管理',

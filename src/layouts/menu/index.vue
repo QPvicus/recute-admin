@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-06 13:26:39
- * @LastEditTime: 2021-06-07 15:52:06
+ * @LastEditTime: 2021-06-07 19:27:15
  * @Description:
 -->
 
@@ -24,11 +24,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs } from 'vue'
+import { computed, defineComponent, reactive, toRefs, watch } from 'vue'
 import imgUrl from '/@/assets/zhaoping.svg'
 import MenuItem from './MenuItem.vue'
 import { useRouteStore } from '/@/store/modules/route'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 export default defineComponent({
   name: 'LayoutMenu',
   components: {
@@ -39,19 +39,45 @@ export default defineComponent({
       type: Boolean,
     },
   },
-  setup() {
+  setup(props) {
     const currentRoute = useRoute()
-    console.log(currentRoute)
-    const getOpenKeys = () => [currentRoute.matched[1].name]
+    const router = useRouter()
+    //  获取当前打开的 SubMenu
+    const getOpenKeys = () => [currentRoute.matched[0].name]
     const routeStore = useRouteStore()
     const menus = computed(() => routeStore.menus)
-    console.log(menus.value)
     const state = reactive({
-      selectedKeys: getOpenKeys(),
-      openKeys: [currentRoute.name],
+      selectedKeys: [currentRoute.name],
+      openKeys: getOpenKeys(),
     })
-    const handleClick = ({ item, key, keyPath }) => {
-      console.log(item, key, keyPath)
+
+    // 监听 colllaspe 折叠状态
+    watch(
+      () => props.collapsed,
+      (newVal) => {
+        state.selectedKeys = [currentRoute.name]
+        state.openKeys = newVal ? [] : getOpenKeys()
+      }
+    )
+    //  监听当前路由的变化 随时更新切换菜单
+    watch(
+      () => currentRoute.fullPath,
+      () => {
+        if (props.collapsed) return
+        console.log(currentRoute.name)
+        console.log(getOpenKeys())
+        state.selectedKeys = [currentRoute.name]
+        state.openKeys = getOpenKeys()
+      }
+    )
+
+    const handleClick = ({ item, key }) => {
+      console.log(item)
+      if (/http(s)?:/.test(key)) {
+        window.open(key)
+      } else {
+        router.push({ name: key })
+      }
     }
     return {
       ...toRefs(state),

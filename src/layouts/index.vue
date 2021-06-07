@@ -24,7 +24,7 @@
           minHeight: '280px',
         }"
       >
-        Content
+        <router-view />
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -46,7 +46,7 @@ export default defineComponent({
     }
     return {
       collapsed,
-      handleCollapseToggle
+      handleCollapseToggle,
     }
   },
 })
