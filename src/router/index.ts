@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-06-06 21:09:16
+ * @LastEditTime: 2021-06-07 09:09:23
  * @Description:
  */
 
@@ -40,6 +40,7 @@ const router = createRouter({
   scrollBehavior: () => ({ left: 0, top: 0 }),
 })
 
+// 白名单
 const WHITE_ROUTE_LIST = ['Login']
 
 export async function createRoute() {

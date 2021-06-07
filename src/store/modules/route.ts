@@ -1,8 +1,8 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-06 20:38:46
- * @LastEditTime: 2021-06-06 20:55:17
- * @Description:
+ * @LastEditTime: 2021-06-07 08:58:04
+ * @Description:  路由模块
  */
 
 import { defineStore } from 'pinia'
