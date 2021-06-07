@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-06 13:26:39
- * @LastEditTime: 2021-06-07 19:27:15
+ * @LastEditTime: 2021-06-07 19:38:22
  * @Description:
 -->
 
@@ -64,8 +64,6 @@ export default defineComponent({
       () => currentRoute.fullPath,
       () => {
         if (props.collapsed) return
-        console.log(currentRoute.name)
-        console.log(getOpenKeys())
         state.selectedKeys = [currentRoute.name]
         state.openKeys = getOpenKeys()
       }

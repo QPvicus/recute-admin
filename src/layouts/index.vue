@@ -4,17 +4,8 @@
       <LayoutMenu :collapsed="collapsed" />
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          @click="handleCollapseToggle"
-        />
-        <menu-fold-outlined
-          v-else
-          class="trigger"
-          @click="handleCollapseToggle"
-        />
+      <a-layout-header class="layout-header">
+        <LayoutHeader v-model:collapsed="collapsed" />
       </a-layout-header>
       <a-layout-content
         :style="{
@@ -32,21 +23,16 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import LayoutMenu from './menu/index.vue'
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
+import LayoutHeader from './header/index.vue'
 export default defineComponent({
   components: {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
     LayoutMenu,
+    LayoutHeader,
   },
   setup() {
     const collapsed = ref<boolean>(false)
-    const handleCollapseToggle = () => {
-      collapsed.value = !collapsed.value
-    }
     return {
       collapsed,
-      handleCollapseToggle,
     }
   },
 })
@@ -57,17 +43,13 @@ export default defineComponent({
   overflow: hidden;
   display: flex;
 }
-.trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 24px;
-  cursor: pointer;
-  transition: color 0.3s;
+.layout-header {
+  padding: 0;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.trigger:hover {
-  color: #1890ff;
-}
-
 .site-layout .site-layout-background {
   background: #fff;
 }

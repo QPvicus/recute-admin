@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-06-07 19:22:31
+ * @LastEditTime: 2021-06-07 21:13:35
  * @Description:
  */
 
@@ -23,7 +23,7 @@ const routes: RouteRecordRaw[] = [
     component: Layout,
     redirect: '/index',
     meta: {
-      title: 'Dashboard',
+      title: '首页',
       icon: 'icon-dash-board',
     },
     children: [
