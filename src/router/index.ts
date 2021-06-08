@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-06-08 19:43:43
+ * @LastEditTime: 2021-06-08 21:33:19
  * @Description:
  */
 
@@ -11,6 +11,7 @@ import type { App } from 'vue'
 export const Layout = () => import('/@/layouts/index.vue')
 import { asyncRoute } from './modules'
 import redirect from './modules/redirect'
+import errorRoute, { NotFoundPage } from './modules/errorRoute'
 import { useRouteStore } from '../store/modules/route'
 import { setupRouterGuard } from './router-guard'
 const routes: RouteRecordRaw[] = [
@@ -36,12 +37,15 @@ const routes: RouteRecordRaw[] = [
         meta: {
           title: '工作台',
           icon: 'icon-workbench',
+          keepAlive: true,
         },
       },
     ],
   },
   ...asyncRoute,
   ...redirect,
+  NotFoundPage,
+  errorRoute,
 ]
 
 const router = createRouter({

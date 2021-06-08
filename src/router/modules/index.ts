@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-06 14:57:09
- * @LastEditTime: 2021-06-07 19:22:21
+ * @LastEditTime: 2021-06-08 21:33:46
  * @Description:
  */
 import type { RouteRecordRaw } from 'vue-router'
@@ -23,6 +23,7 @@ const asyncRoute: RouteRecordRaw[] = [
         meta: {
           title: '大学生',
           icon: 'icon-Student',
+          keepAlive: true,
         },
       },
       {
@@ -32,6 +33,7 @@ const asyncRoute: RouteRecordRaw[] = [
         meta: {
           title: '公司',
           icon: 'icon-company',
+          keepAlive: true,
         },
       },
     ],
@@ -53,6 +55,7 @@ const asyncRoute: RouteRecordRaw[] = [
         meta: {
           title: '职位管理',
           icon: 'icon-zhiweisvg',
+          keepAlive: true,
         },
       },
     ],

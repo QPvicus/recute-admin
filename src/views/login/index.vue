@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:04:01
- * @LastEditTime: 2021-06-06 13:30:03
+ * @LastEditTime: 2021-06-08 21:40:22
  * @Description:
 -->
 
@@ -67,7 +67,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import { useFormRules, useFormValid } from './useLogin'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   GithubFilled,
   WechatFilled,
@@ -77,6 +77,7 @@ import {
   UserOutlined,
   LockOutlined,
 } from '@ant-design/icons-vue'
+import { useUserStore } from '/@/store/modules/user'
 
 export default defineComponent({
   name: 'LoginForm',
@@ -91,12 +92,14 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
+    const route = useRoute()
     const formRef = ref()
     const formData = reactive({
       account: 'admin',
       password: '123456',
     })
     const loading = ref(false)
+    const userStore = useUserStore()
     const { getFormRules } = useFormRules()
     const { validForm } = useFormValid(formRef)
     async function handleLogin() {
@@ -104,7 +107,9 @@ export default defineComponent({
       if (!data) return
       try {
         loading.value = true
-        router.push('/')
+        userStore.setToken('token')
+        const path = decodeURIComponent((route.query?.redirect || '/') as string)
+        router.push(path)
       } catch (error) {
         console.log(error)
       } finally {
