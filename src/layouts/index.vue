@@ -7,15 +7,8 @@
       <a-layout-header class="layout-header">
         <LayoutHeader v-model:collapsed="collapsed" />
       </a-layout-header>
-      <a-layout-content
-        :style="{
-          margin: '24px 16px',
-          padding: '24px',
-          background: '#fff',
-          minHeight: '280px',
-        }"
-      >
-        <router-view />
+      <a-layout-content class="layout-content">
+        <LayoutTabs />
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -24,10 +17,12 @@
 import { defineComponent, ref } from 'vue'
 import LayoutMenu from './menu/index.vue'
 import LayoutHeader from './header/index.vue'
+import LayoutTabs from './tabs/index.vue'
 export default defineComponent({
   components: {
     LayoutMenu,
     LayoutHeader,
+    LayoutTabs,
   },
   setup() {
     const collapsed = ref<boolean>(false)
@@ -49,6 +44,12 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.ant-layout {
+  overflow: hidden;
+}
+.layout-content {
+  flex: none;
 }
 .site-layout .site-layout-background {
   background: #fff;

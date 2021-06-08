@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-06-07 21:13:35
+ * @LastEditTime: 2021-06-08 18:04:12
  * @Description:
  */
 
@@ -10,6 +10,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import type { App } from 'vue'
 export const Layout = () => import('/@/layouts/index.vue')
 import { asyncRoute } from './modules'
+import redirect from './modules/redirect'
 import { useRouteStore } from '../store/modules/route'
 const routes: RouteRecordRaw[] = [
   {
@@ -39,6 +40,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   ...asyncRoute,
+  ...redirect,
 ]
 
 const router = createRouter({
@@ -49,14 +51,16 @@ const router = createRouter({
 })
 
 // 白名单
-const WHITE_ROUTE_LIST = ['Login']
+export const WHITE_ROUTE_LIST = ['Login', 'Redirect']
 
 export async function createRoute() {
   const routeStore = useRouteStore()
   let routes = router.getRoutes()
+  console.log(routes)
   routes = routes.filter((route) => {
     return !WHITE_ROUTE_LIST.includes(route.name as string)
   })
+  console.log(routes)
   await routeStore.setAddRoutes(routes)
 }
 

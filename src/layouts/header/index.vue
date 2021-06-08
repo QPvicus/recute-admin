@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-06 14:41:39
- * @LastEditTime: 2021-06-07 21:32:00
+ * @LastEditTime: 2021-06-08 09:17:10
  * @Description:
 -->
 
@@ -41,6 +41,7 @@
         />
       </a-tooltip>
     </template>
+    <component :is="fullscreenIcon" @click="toggleFullScreen" />
     <a-dropdown>
       <a-avatar>admin</a-avatar>
       <template #overlay>
@@ -58,13 +59,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useRoute } from 'vue-router'
 import {
   PoweroffOutlined,
   GithubOutlined,
   SearchOutlined,
+  FullscreenOutlined,
+  FullscreenExitOutlined,
 } from '@ant-design/icons-vue'
 export default defineComponent({
   name: 'LayoutHeader',
@@ -74,6 +77,8 @@ export default defineComponent({
     PoweroffOutlined,
     SearchOutlined,
     GithubOutlined,
+    FullscreenOutlined,
+    FullscreenExitOutlined,
   },
   props: {
     collapsed: {
@@ -82,6 +87,9 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
+    const state = reactive({
+      fullscreenIcon: 'FullscreenOutlined',
+    })
     const iconList = [
       {
         icon: 'SearchOutlined',
@@ -95,6 +103,13 @@ export default defineComponent({
         },
       },
     ]
+    const toggleFullScreenIcon = () => {
+      state.fullscreenIcon =
+        document.fullscreenElement !== null
+          ? 'FullscreenExitOutlined'
+          : 'FullscreenOutlined'
+    }
+
     const toggleFullScreen = () => {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen()
@@ -104,8 +119,9 @@ export default defineComponent({
         }
       }
     }
-    document.addEventListener('fullscreenchange', toggleFullScreen)
+    document.addEventListener('fullscreenchange', toggleFullScreenIcon)
     return {
+      ...toRefs(state),
       route,
       toggleFullScreen,
       iconList,

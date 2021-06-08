@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:17:36
- * @LastEditTime: 2021-06-07 21:30:24
+ * @LastEditTime: 2021-06-08 18:13:43
  * @Description: 按需导入 Antd 组件
  */
 
@@ -21,6 +21,9 @@ import {
   Dropdown,
   Avatar,
   Tooltip,
+  Tabs,
+  Card,
+  Result,
 } from 'ant-design-vue'
 const Components = [
   Button,
@@ -37,6 +40,9 @@ const Components = [
   Dropdown,
   Avatar,
   Tooltip,
+  Tabs,
+  Card,
+  Result,
 ]
 export function setupAntd(app: App) {
   Components.forEach((component) => {

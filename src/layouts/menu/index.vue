@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-06 13:26:39
- * @LastEditTime: 2021-06-07 19:38:22
+ * @LastEditTime: 2021-06-08 14:17:52
  * @Description:
 -->
 
@@ -70,7 +70,7 @@ export default defineComponent({
     )
 
     const handleClick = ({ item, key }) => {
-      console.log(item)
+      console.log(item, 'menu')
       if (/http(s)?:/.test(key)) {
         window.open(key)
       } else {
