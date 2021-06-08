@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-06-08 18:04:12
+ * @LastEditTime: 2021-06-08 19:43:43
  * @Description:
  */
 
@@ -12,6 +12,7 @@ export const Layout = () => import('/@/layouts/index.vue')
 import { asyncRoute } from './modules'
 import redirect from './modules/redirect'
 import { useRouteStore } from '../store/modules/route'
+import { setupRouterGuard } from './router-guard'
 const routes: RouteRecordRaw[] = [
   {
     path: '/login',
@@ -66,6 +67,7 @@ export async function createRoute() {
 
 export function setupRouter(app: App) {
   app.use(router)
+  setupRouterGuard(router)
 }
 
 export default router
