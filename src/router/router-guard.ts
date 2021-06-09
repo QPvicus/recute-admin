@@ -1,23 +1,22 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-08 18:32:14
- * @LastEditTime: 2021-06-08 21:49:01
- * @Description:
+ * @LastEditTime: 2021-06-09 09:51:07
+ * @Description: 路由导航守卫
  */
 
 import NProgress from 'nprogress'
 import { isNavigationFailure, Router } from 'vue-router'
 import 'nprogress/nprogress.css'
-import { useUserStoreWithOut } from '/@/store/modules/user'
 import { useRouterStoreWithOut } from '../store/modules/route'
-const userStore = useUserStoreWithOut()
+import { TOKEN } from '/@/store/constants'
 const routeStore = useRouterStoreWithOut()
 const allowList = ['Login', 'Error', 'Error-404']
 export function setupRouterGuard(router: Router) {
   router.beforeEach((to, from, next) => {
     console.log(to, from, next, 'beforeEach')
     NProgress.start()
-    const token = userStore.getToken
+    const token = localStorage.getItem(TOKEN)
     if (token) {
       if (to.name === 'Login') {
         next({ path: '/index' })
@@ -70,7 +69,6 @@ export function setupRouterGuard(router: Router) {
     }
     //  更新 操作
     routeStore.setKeepAliveComps(keepAliveComps)
-    console.log(1)
     NProgress.done()
   })
 }

@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-08 09:23:11
- * @LastEditTime: 2021-06-08 19:12:51
+ * @LastEditTime: 2021-06-09 10:49:34
  * @Description:
 -->
 
@@ -31,7 +31,7 @@
                     <ReloadOutlined />
                     刷新
                   </a-menu-item>
-                  <a-menu-item key="2">
+                  <a-menu-item key="2" @click="removeTab(tab)">
                     <CloseOutlined />
                     关闭
                   </a-menu-item>
@@ -64,7 +64,7 @@
           </a>
           <template #overlay>
             <a-menu style="user-select: none">
-              <a-menu-item key="1">
+              <a-menu-item key="1" @click="reloadPage">
                 <ReloadOutlined />
                 刷新
               </a-menu-item>
@@ -113,6 +113,7 @@ import {
 import { TABS_ROUTES } from '/@/store/constants'
 import { WHITE_ROUTE_LIST } from '/@/router'
 import { message } from 'ant-design-vue'
+import { useRouteStore } from '/@/store/modules/route'
 export default defineComponent({
   name: 'TabsPage',
   components: {
@@ -128,6 +129,7 @@ export default defineComponent({
     const route = useRoute()
     const tabsStore = useTabsStore()
     const router = useRouter()
+    const routeStore = useRouteStore()
     const state = reactive({
       activeKey: route.fullPath,
     })
@@ -146,6 +148,24 @@ export default defineComponent({
     // 标签页列表
     const tabs = computed(() => tabsStore.tabs)
     console.log(tabs.value)
+    // 可能  路由是未找到页  标签页理应不包含未找到的标签
+    watch(
+      () => route.fullPath,
+      () => {
+        const notFoundRoute: string[] = []
+        tabs.value.forEach((tab) => {
+          if (!router.hasRoute(tab.name)) {
+            notFoundRoute.push(tab.name)
+          }
+        })
+        if (notFoundRoute.length) {
+          const newTabs = tabs.value.filter(
+            (tab) => !notFoundRoute.includes(tab.name)
+          ) as RouteItem[]
+          tabsStore.initTabs(newTabs)
+        }
+      }
+    )
 
     // 监听路由变化 新增 路由标签
     watch(
@@ -160,6 +180,19 @@ export default defineComponent({
         immediate: true,
       }
     )
+
+    //  刷新 页面 移除缓存组件
+    const deleletKeepAliveCompName = () => {
+      console.log('name', routeStore.keepAliveComps)
+      if (route.meta.keepAlive) {
+        const name = router.currentRoute.value.matched.find(
+          (item) => item.name === route.name
+        )?.components.default?.name
+        if (name) {
+          routeStore.keepAliveComps.filter((compName) => compName !== name)
+        }
+      }
+    }
 
     //  浏览器刷新或者关闭之前 对标签做缓存
     window.addEventListener('beforeunload', () => {
@@ -177,7 +210,8 @@ export default defineComponent({
         return message.warning('该标签是最后一个了!')
       }
       tabsStore.closeCurrentTab(route)
-
+      //  关闭页面 就要移除缓存组件
+      deleletKeepAliveCompName()
       // 如果 关闭 刚好是当前 的标签
       if (state.activeKey === route.fullPath) {
         const currentRoute = tabs.value[Math.max(0, unref(tabs).length - 1)]
@@ -222,6 +256,8 @@ export default defineComponent({
     }
     //  此处地方有问题 待定 刷新 之后理应 缓存
     const reloadPage = () => {
+      deleletKeepAliveCompName()
+      console.log('reloadPage')
       router.push({
         path: '/redirect' + unref(route).fullPath,
       })

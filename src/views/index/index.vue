@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-05 14:17:13
- * @LastEditTime: 2021-06-05 22:05:06
+ * @LastEditTime: 2021-06-09 09:29:40
  * @Description:
 -->
 
@@ -14,6 +14,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+  name: 'Home-index',
   setup() {},
 })
 </script>

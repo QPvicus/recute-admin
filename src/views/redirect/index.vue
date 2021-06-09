@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-08 18:01:09
- * @LastEditTime: 2021-06-08 18:25:51
+ * @LastEditTime: 2021-06-09 09:03:42
  * @Description:
 -->
 
@@ -15,6 +15,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     onBeforeMount(() => {
+      console.log('redirect onbeforeunmount')
       const { query, params } = route
       const { path } = params
       router.replace({

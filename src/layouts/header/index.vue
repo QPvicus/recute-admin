@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-06 14:41:39
- * @LastEditTime: 2021-06-08 09:17:10
+ * @LastEditTime: 2021-06-09 10:42:35
  * @Description:
 -->
 
@@ -46,10 +46,10 @@
       <a-avatar>admin</a-avatar>
       <template #overlay>
         <a-menu>
-          <a-menu-item>
+          <a-menu-item key="1">
             <a href="javascript:;">个人中心</a>
           </a-menu-item>
-          <a-menu-item>
+          <a-menu-item key="2" @click="logout">
             <a><PoweroffOutlined /> 退出登录</a>
           </a-menu-item>
         </a-menu>
@@ -59,16 +59,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { createVNode, defineComponent, reactive, toRefs } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   PoweroffOutlined,
   GithubOutlined,
   SearchOutlined,
   FullscreenOutlined,
   FullscreenExitOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons-vue'
+import { Modal } from 'ant-design-vue'
+import { TABS_ROUTES, TOKEN } from '/@/store/constants'
 export default defineComponent({
   name: 'LayoutHeader',
   components: {
@@ -79,6 +82,7 @@ export default defineComponent({
     GithubOutlined,
     FullscreenOutlined,
     FullscreenExitOutlined,
+    ExclamationCircleOutlined,
   },
   props: {
     collapsed: {
@@ -87,6 +91,7 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const state = reactive({
       fullscreenIcon: 'FullscreenOutlined',
     })
@@ -120,11 +125,37 @@ export default defineComponent({
       }
     }
     document.addEventListener('fullscreenchange', toggleFullScreenIcon)
+
+    const logout = () => {
+      Modal.confirm({
+        title: '你确定要退出登录吗?',
+        icon: createVNode(ExclamationCircleOutlined),
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+          Promise.resolve().then(() => {
+            localStorage.removeItem(TABS_ROUTES)
+            localStorage.removeItem(TOKEN)
+            router
+              .replace({
+                path: '/login',
+                query: {
+                  redirect: route.fullPath,
+                },
+              })
+              .finally(() => {
+                location.reload()
+              })
+          })
+        },
+      })
+    }
     return {
       ...toRefs(state),
       route,
       toggleFullScreen,
       iconList,
+      logout,
     }
   },
 })
