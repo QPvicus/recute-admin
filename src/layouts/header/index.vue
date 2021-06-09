@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-06 14:41:39
- * @LastEditTime: 2021-06-09 10:42:35
+ * @LastEditTime: 2021-06-09 13:19:36
  * @Description:
 -->
 
@@ -136,16 +136,12 @@ export default defineComponent({
           Promise.resolve().then(() => {
             localStorage.removeItem(TABS_ROUTES)
             localStorage.removeItem(TOKEN)
-            router
-              .replace({
-                path: '/login',
-                query: {
-                  redirect: route.fullPath,
-                },
-              })
-              .finally(() => {
-                location.reload()
-              })
+            router.replace({
+              path: '/login',
+              query: {
+                redirect: route.fullPath,
+              },
+            })
           })
         },
       })
