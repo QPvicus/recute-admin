@@ -1,13 +1,12 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-06 14:57:22
- * @LastEditTime: 2021-06-08 21:03:21
+ * @LastEditTime: 2021-06-27 10:26:00
  * @Description:
  */
 
 import type { RouteRecordRaw } from 'vue-router'
 import { RouterTransition } from '/@/components/transition'
-import { Layout } from '..'
 
 export const NotFoundPage: RouteRecordRaw = {
   path: '/:path(.*)*',

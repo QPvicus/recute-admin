@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-08 18:32:14
- * @LastEditTime: 2021-06-09 09:51:07
+ * @LastEditTime: 2021-06-27 13:15:01
  * @Description: 路由导航守卫
  */
 
@@ -23,6 +23,7 @@ export function setupRouterGuard(router: Router) {
         NProgress.done()
       } else {
         const hasRoute = router.hasRoute(to.name!)
+        console.log(hasRoute, to.name, 'hasRoute')
         if (allowList.includes(to.name as string) || hasRoute) {
           next()
         }

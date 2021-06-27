@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-06-08 21:33:19
+ * @LastEditTime: 2021-06-27 15:31:23
  * @Description:
  */
 
@@ -12,6 +12,8 @@ export const Layout = () => import('/@/layouts/index.vue')
 import { asyncRoute } from './modules'
 import redirect from './modules/redirect'
 import errorRoute, { NotFoundPage } from './modules/errorRoute'
+import companyRoute from './modules/company'
+import studentRoute from './modules/student'
 import { useRouteStore } from '../store/modules/route'
 import { setupRouterGuard } from './router-guard'
 const routes: RouteRecordRaw[] = [
@@ -43,6 +45,8 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   ...asyncRoute,
+  ...companyRoute,
+  ...studentRoute,
   ...redirect,
   NotFoundPage,
   errorRoute,
