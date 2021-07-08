@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:17:36
- * @LastEditTime: 2021-06-09 10:28:16
+ * @LastEditTime: 2021-07-08 14:36:18
  * @Description: 按需导入 Antd 组件
  */
 
@@ -15,7 +15,6 @@ import {
   Col,
   Row,
   Divider,
-  Icon,
   Menu,
   Breadcrumb,
   Dropdown,
@@ -25,7 +24,10 @@ import {
   Card,
   Result,
   Modal,
+  Table,
+  Image,
 } from 'ant-design-vue'
+import popconfirm from 'ant-design-vue/lib/popconfirm'
 const Components = [
   Button,
   Layout,
@@ -35,7 +37,6 @@ const Components = [
   Col,
   Row,
   Divider,
-  Icon,
   Menu,
   Breadcrumb,
   Dropdown,
@@ -45,6 +46,9 @@ const Components = [
   Card,
   Result,
   Modal,
+  Table,
+  Image,
+  popconfirm,
 ]
 export function setupAntd(app: App) {
   Components.forEach((component) => {

@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-08 09:23:11
- * @LastEditTime: 2021-06-09 10:57:17
+ * @LastEditTime: 2021-07-08 08:50:13
  * @Description:
 -->
 
@@ -147,7 +147,9 @@ export default defineComponent({
     tabsStore.initTabs(routes)
     // 标签页列表
     const tabs = computed(() => tabsStore.tabs)
+    console.log('tabs view', tabs.value)
     // 可能  路由是未找到页  标签页理应不包含未找到的标签
+    console.log(router.hasRoute('Error-404'))
     watch(
       () => route.fullPath,
       () => {

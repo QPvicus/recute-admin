@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-06 13:26:39
- * @LastEditTime: 2021-06-08 14:17:52
+ * @LastEditTime: 2021-07-08 10:59:37
  * @Description:
 -->
 
@@ -46,6 +46,7 @@ export default defineComponent({
     const getOpenKeys = () => [currentRoute.matched[0].name]
     const routeStore = useRouteStore()
     const menus = computed(() => routeStore.menus)
+    console.log(menus.value, 'menu,value ====')
     const state = reactive({
       selectedKeys: [currentRoute.name],
       openKeys: getOpenKeys(),

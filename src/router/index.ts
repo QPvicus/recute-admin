@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-06-27 15:31:23
+ * @LastEditTime: 2021-07-08 10:28:25
  * @Description:
  */
 
@@ -9,12 +9,8 @@ import { createWebHashHistory, createRouter } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import type { App } from 'vue'
 export const Layout = () => import('/@/layouts/index.vue')
-import { asyncRoute } from './modules'
 import redirect from './modules/redirect'
-import errorRoute, { NotFoundPage } from './modules/errorRoute'
-import companyRoute from './modules/company'
-import studentRoute from './modules/student'
-import { useRouteStore } from '../store/modules/route'
+import errorRoute from './modules/errorRoute'
 import { setupRouterGuard } from './router-guard'
 const routes: RouteRecordRaw[] = [
   {
@@ -44,11 +40,10 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-  ...asyncRoute,
-  ...companyRoute,
-  ...studentRoute,
+  // ...asyncRoute,
+  // ...companyRoute,
+  // ...studentRoute,
   ...redirect,
-  NotFoundPage,
   errorRoute,
 ]
 
@@ -62,20 +57,11 @@ const router = createRouter({
 // 白名单
 export const WHITE_ROUTE_LIST = ['Login', 'Redirect']
 
-export async function createRoute() {
-  const routeStore = useRouteStore()
-  let routes = router.getRoutes()
-  console.log(routes)
-  routes = routes.filter((route) => {
-    return !WHITE_ROUTE_LIST.includes(route.name as string)
-  })
-  console.log(routes)
-  await routeStore.setAddRoutes(routes)
-}
-
 export function setupRouter(app: App) {
   app.use(router)
+  // 创建路由守卫
   setupRouterGuard(router)
 }
+console.log(router.getRoutes(), 'router getRoutes')
 
 export default router
