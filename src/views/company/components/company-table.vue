@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-07-08 12:59:46
- * @LastEditTime: 2021-07-08 14:39:22
+ * @LastEditTime: 2021-07-08 21:09:33
  * @Description:
 -->
 
@@ -11,6 +11,7 @@
     :dataSource="list"
     :scroll="{ x: true }"
     bordered
+    :pagination="{ ...$props }"
   >
     <template #tag="{ text: imageUrl }">
       <a-image
@@ -23,23 +24,29 @@
       </a-image>
     </template>
     <template #operation="{ record }">
-      <!-- <a-popconfirm
-        v-if="list.length"
-        title="Sure to delete?"
+      <a-popconfirm
+        title="你确定要修改此行数据吗?"
+        ok-text="Yes"
+        cancel-text="No"
+        @confirm="onChangeTableRow(record.key)"
+      >
+        <a-button style="margin-right: 10px">修改</a-button>
+      </a-popconfirm>
+      <a-popconfirm
+        title="你确定要删除吗?"
+        ok-text="Yes"
+        cancel-text="No"
         @confirm="onDelete(record.key)"
       >
-        <a>Delete</a>
-      </a-popconfirm> -->
-      <a-popconfirm>
-        <a>Delete</a>
+        <a-button>删除</a-button>
       </a-popconfirm>
-      {{ record.key }}
     </template>
   </a-table>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import { useRouter } from 'vue-router'
 import { companyColumn, CompanyDataItem } from '../companyTable'
 export default defineComponent({
   name: 'CompanyTable',
@@ -48,14 +55,37 @@ export default defineComponent({
       type: Array as PropType<CompanyDataItem[]>,
       required: true,
     },
+    current: {
+      type: Number,
+      default: 1,
+    },
+    total: {
+      type: Number,
+      default: 30,
+    },
+    defaultPageSize: {
+      type: Number,
+      default: 6,
+    },
   },
-  setup() {
+  setup(props) {
+    const router = useRouter()
     const onDelete = (id: string) => {
       console.log(id)
+    }
+    console.log(props ,'props  $props')
+    const onChangeTableRow = (id: string) => {
+      router.push({
+        name: 'CompanyManagerEdit',
+        query: {
+          company_id: id,
+        },
+      })
     }
     return {
       companyColumn,
       onDelete,
+      onChangeTableRow,
     }
   },
 })
