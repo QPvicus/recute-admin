@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:04:01
- * @LastEditTime: 2021-06-08 21:40:22
+ * @LastEditTime: 2021-07-12 16:16:57
  * @Description:
 -->
 
@@ -16,10 +16,10 @@
         ref="formRef"
         @keypress.enter="handleLogin"
       >
-        <a-form-item name="account">
+        <a-form-item name="username">
           <a-input
             size="large"
-            v-model:value="formData.account"
+            v-model:value="formData.username"
             placeholder="请输入用户名"
           >
             <template #prefix>
@@ -50,15 +50,6 @@
             登录
           </a-button>
         </a-form-item>
-        <a-divider>其他登录方式</a-divider>
-
-        <div class="flex justify-evenly text-xl">
-          <GithubFilled />
-          <WechatFilled />
-          <AlipayCircleFilled />
-          <GoogleCircleFilled />
-          <TwitterCircleFilled />
-        </div>
       </a-form>
     </div>
   </div>
@@ -68,25 +59,13 @@
 import { defineComponent, reactive, ref } from 'vue'
 import { useFormRules, useFormValid } from './useLogin'
 import { useRoute, useRouter } from 'vue-router'
-import {
-  GithubFilled,
-  WechatFilled,
-  AlipayCircleFilled,
-  GoogleCircleFilled,
-  TwitterCircleFilled,
-  UserOutlined,
-  LockOutlined,
-} from '@ant-design/icons-vue'
+import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { useUserStore } from '/@/store/modules/user'
+import { login } from '/@/api/user'
 
 export default defineComponent({
   name: 'LoginForm',
   components: {
-    GithubFilled,
-    WechatFilled,
-    AlipayCircleFilled,
-    GoogleCircleFilled,
-    TwitterCircleFilled,
     UserOutlined,
     LockOutlined,
   },
@@ -95,20 +74,25 @@ export default defineComponent({
     const route = useRoute()
     const formRef = ref()
     const formData = reactive({
-      account: 'admin',
-      password: '123456',
+      username: 'admin',
+      password: 'admin',
     })
     const loading = ref(false)
     const userStore = useUserStore()
     const { getFormRules } = useFormRules()
     const { validForm } = useFormValid(formRef)
     async function handleLogin() {
-      const data = await validForm()
-      if (!data) return
+      const user = await validForm()
+      console.log(user, 'user')
+      if (!user) return
       try {
         loading.value = true
-        userStore.setToken('token')
-        const path = decodeURIComponent((route.query?.redirect || '/') as string)
+        const { data } = await login(user)
+        console.log(data)
+        userStore.setToken(data.message.token)
+        const path = decodeURIComponent(
+          (route.query?.redirect || '/') as string
+        )
         router.push(path)
       } catch (error) {
         console.log(error)

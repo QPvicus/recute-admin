@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-07-08 12:27:08
- * @LastEditTime: 2021-07-08 15:49:14
+ * @LastEditTime: 2021-07-12 16:51:03
  * @Description:
  */
 
@@ -68,6 +68,21 @@ export const queryCompanyListBySearch = (
       keyWord,
       nowPage,
       sumPage,
+    },
+  })
+}
+
+/**
+ * 删除公司信息
+ * @param id
+ * @returns
+ */
+export const deleteCompanyInfo = (id: string) => {
+  return request({
+    url: '/company/deleteInformation',
+    method: 'POST',
+    params: {
+      id,
     },
   })
 }

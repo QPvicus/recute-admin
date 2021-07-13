@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-27 10:57:31
- * @LastEditTime: 2021-07-08 21:34:04
+ * @LastEditTime: 2021-07-13 19:30:52
  * @Description:
 -->
 
@@ -14,12 +14,6 @@
       <a-button type="primary" @click="searchPost">
         <template #icon><SearchOutlined /></template>
         搜索
-      </a-button>
-    </a-col>
-    <a-col>
-      <a-button type="primary" @click="addCompany">
-        <template #icon><PlusOutlined /></template>
-        添加
       </a-button>
     </a-col>
   </a-row>

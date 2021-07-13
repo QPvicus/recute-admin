@@ -1,7 +1,7 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-08 09:23:11
- * @LastEditTime: 2021-07-08 08:50:13
+ * @LastEditTime: 2021-07-13 21:02:56
  * @Description:
 -->
 
@@ -14,7 +14,7 @@
       @change="handleChange"
       @edit="editTab"
     >
-      <template v-for="tab in tabs" :key="tab.fullPath">
+      <template v-for="tab in tabs" :key="tab.path">
         <a-tab-pane>
           <template #tab>
             <a-dropdown :trigger="['contextmenu']">
@@ -25,7 +25,7 @@
                 <a-menu style="user-select: none">
                   <a-menu-item
                     key="1"
-                    :disabled="activeKey !== tab.fullPath"
+                    :disabled="activeKey !== tab.path"
                     @click="reloadPage"
                   >
                     <ReloadOutlined />
@@ -131,8 +131,9 @@ export default defineComponent({
     const router = useRouter()
     const routeStore = useRouteStore()
     const state = reactive({
-      activeKey: route.fullPath,
+      activeKey: route.path,
     })
+    console.log(state.activeKey, 'activeKey')
     const getSimpleRoute = (route): RouteItem => {
       const { fullPath, hash, meta, matched, name, params, path, query } = route
       return { fullPath, hash, meta, matched, name, params, path, query }
@@ -151,7 +152,7 @@ export default defineComponent({
     // 可能  路由是未找到页  标签页理应不包含未找到的标签
     console.log(router.hasRoute('Error-404'))
     watch(
-      () => route.fullPath,
+      () => route.path,
       () => {
         const notFoundRoute: string[] = []
         tabs.value.forEach((tab) => {
@@ -170,7 +171,7 @@ export default defineComponent({
 
     // 监听路由变化 新增 路由标签
     watch(
-      () => route.fullPath,
+      () => route.path,
       (to) => {
         // console.log(to, from)
         if (WHITE_ROUTE_LIST.includes(route.name as string)) return
@@ -214,9 +215,9 @@ export default defineComponent({
       //  关闭页面 就要移除缓存组件
       deleletKeepAliveCompName()
       // 如果 关闭 刚好是当前 的标签
-      if (state.activeKey === route.fullPath) {
+      if (state.activeKey === route.path) {
         const currentRoute = tabs.value[Math.max(0, unref(tabs).length - 1)]
-        state.activeKey = currentRoute.fullPath
+        state.activeKey = currentRoute.path
         router.push(currentRoute)
       }
     }
@@ -225,29 +226,27 @@ export default defineComponent({
     const editTab = (targetKey, action: string) => {
       console.log(targetKey, action)
       if (action === 'remove') {
-        removeTab(
-          tabs.value.find((tab) => tab.fullPath === targetKey) as RouteItem
-        )
+        removeTab(tabs.value.find((tab) => tab.path === targetKey) as RouteItem)
       }
     }
 
     // 关闭左侧
     const closeLeftTabs = (route) => {
       tabsStore.closeLeftTabs(route)
-      state.activeKey = route.fullPath
+      state.activeKey = route.path
       router.replace(route.fullPath)
     }
 
     const closeRightTabs = (route) => {
       tabsStore.closeRightTabs(route)
-      state.activeKey = route.fullPath
+      state.activeKey = route.path
       router.replace(route.fullPath)
     }
 
     // 关闭其他
     const closeOtherTabs = (route) => {
       tabsStore.closeOtherTabs(route)
-      state.activeKey = route.fullPath
+      state.activeKey = route.path
       router.replace(route.fullPath)
     }
     // 关闭全部

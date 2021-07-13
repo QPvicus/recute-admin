@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-27 10:26:28
- * @LastEditTime: 2021-06-27 15:16:32
+ * @LastEditTime: 2021-07-13 16:55:51
  * @Description:
  */
 
@@ -28,16 +28,16 @@ const routes: RouteRecordRaw[] = [
           icon: 'icon-info',
         },
       },
-      {
-        path: '/companyManager/edit',
-        name: 'CompanyManagerEdit',
-        component: () => import('/@/views/company/edit.vue'),
-        meta: {
-          keepAlive: true,
-          title: '公司编辑',
-          icon: 'icon-edit',
-        },
-      },
+      // {
+      //   path: '/companyManager/edit',
+      //   name: 'CompanyManagerEdit',
+      //   component: () => import('/@/views/company/edit.vue'),
+      //   meta: {
+      //     keepAlive: true,
+      //     title: '公司编辑',
+      //     icon: 'icon-edit',
+      //   },
+      // },
     ],
   },
 ]

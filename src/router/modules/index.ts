@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-06 14:57:09
- * @LastEditTime: 2021-07-08 10:15:29
+ * @LastEditTime: 2021-07-13 19:51:56
  * @Description:
  */
 import type { RouteRecordRaw } from 'vue-router'
@@ -21,7 +21,7 @@ const asyncRoute: RouteRecordRaw[] = [
         name: 'Student',
         component: () => import('/@/views/user/College.vue'),
         meta: {
-          title: '大学生',
+          title: '学生用户',
           icon: 'icon-Student',
           keepAlive: true,
         },
@@ -31,7 +31,7 @@ const asyncRoute: RouteRecordRaw[] = [
         name: 'Company',
         component: () => import('/@/views/user/Company.vue'),
         meta: {
-          title: '公司',
+          title: '公司用户',
           icon: 'icon-company',
           keepAlive: true,
         },
@@ -44,16 +44,16 @@ const asyncRoute: RouteRecordRaw[] = [
     component: Layout,
     redirect: '/post/index',
     meta: {
-      title: '职位',
+      title: '职位管理',
       icon: 'icon-zhiweisvg',
     },
     children: [
       {
         path: 'index',
-        name: 'Post-index',
+        name: 'PostIndex',
         component: () => import('/@/views/post/index.vue'),
         meta: {
-          title: '职位管理',
+          title: '职位信息',
           icon: 'icon-zhiweisvg',
           keepAlive: true,
         },

@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:01:06
- * @LastEditTime: 2021-07-08 10:28:25
+ * @LastEditTime: 2021-07-13 12:58:18
  * @Description:
  */
 
@@ -40,9 +40,6 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-  // ...asyncRoute,
-  // ...companyRoute,
-  // ...studentRoute,
   ...redirect,
   errorRoute,
 ]

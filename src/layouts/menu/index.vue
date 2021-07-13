@@ -1,14 +1,13 @@
 <!--
  * @Author: Taylor Swift
  * @Date: 2021-06-06 13:26:39
- * @LastEditTime: 2021-07-08 10:59:37
+ * @LastEditTime: 2021-07-13 16:52:26
  * @Description:
 -->
 
 <template>
   <div class="logo flex justify-center items-center whitespace-nowrap">
-    <img :src="imgUrl" alt="" />
-    <span class="text-white text-xl" v-show="!collapsed">大学生招聘</span>
+    <span class="text-white text-xl" v-show="!collapsed">2+1顶岗实习平台</span>
   </div>
   <a-menu
     theme="dark"

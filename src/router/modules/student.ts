@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-27 15:18:22
- * @LastEditTime: 2021-06-27 15:36:34
+ * @LastEditTime: 2021-07-13 16:57:18
  * @Description:
  */
 
@@ -14,7 +14,7 @@ const routes: RouteRecordRaw[] = [
     redirect: '/student/view',
     component: () => import('/@/layouts/index.vue'),
     meta: {
-      title: '学生管理',
+      title: '简历管理',
       icon: 'icon-Student',
       role: ['admin'],
     },
@@ -24,23 +24,23 @@ const routes: RouteRecordRaw[] = [
         name: 'StudentManagerView',
         component: () => import('/@/views/student/view.vue'),
         meta: {
-          title: '学生信息',
+          title: '简历信息',
           icon: 'icon-info',
           keepAlive: true,
           role: ['admin'],
         },
       },
-      {
-        path: '/student/edit',
-        name: 'StudentManagerEdit',
-        component: () => import('/@/views/student/edit.vue'),
-        meta: {
-          title: '学生编辑',
-          icon: 'icon-edit',
-          keepAlive: true,
-          role: ['admin'],
-        },
-      },
+      // {
+      //   path: '/student/edit',
+      //   name: 'StudentManagerEdit',
+      //   component: () => import('/@/views/student/edit.vue'),
+      //   meta: {
+      //     title: '学生编辑',
+      //     icon: 'icon-edit',
+      //     keepAlive: true,
+      //     role: ['admin'],
+      //   },
+      // },
     ],
   },
 ]

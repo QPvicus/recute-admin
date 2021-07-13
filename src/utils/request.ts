@@ -1,12 +1,11 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 14:18:50
- * @LastEditTime: 2021-07-08 13:06:58
+ * @LastEditTime: 2021-07-12 16:18:43
  * @Description:
  */
 
 import axios from 'axios'
-import { useUserStoreWithOut } from '/@/store/modules/user'
 
 /**
  *  @description 项目初始化
@@ -20,10 +19,9 @@ const instance = axios.create({
  *
  */
 
-const store = useUserStoreWithOut()
 instance.interceptors.request.use(
   (config) => {
-    const { token } = store
+    const token = localStorage.getItem('admin_token')
     if (token) {
       config.headers.token = token
     }

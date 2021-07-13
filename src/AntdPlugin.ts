@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-05 13:17:36
- * @LastEditTime: 2021-07-08 14:52:17
+ * @LastEditTime: 2021-07-13 20:36:42
  * @Description: 按需导入 Antd 组件
  */
 
@@ -27,6 +27,8 @@ import {
   Table,
   Image,
   Popconfirm,
+  Tag,
+  Descriptions,
 } from 'ant-design-vue'
 const Components = [
   Button,
@@ -49,6 +51,8 @@ const Components = [
   Table,
   Image,
   Popconfirm,
+  Tag,
+  Descriptions,
 ]
 export function setupAntd(app: App) {
   Components.forEach((component) => {
