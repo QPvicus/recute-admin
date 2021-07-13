@@ -1,7 +1,7 @@
 /*
  * @Author: Taylor Swift
  * @Date: 2021-06-08 09:59:31
- * @LastEditTime: 2021-07-13 21:02:36
+ * @LastEditTime: 2021-07-13 21:08:48
  * @Description: 对 多标签页  进行 缓存
  */
 
@@ -13,7 +13,7 @@ import { TABS_ROUTES } from '../constants'
 
 //  让 fullPath name 成为必选
 export type RouteItem = Partial<RouteLocationNormalized> & {
-  path: string
+  fullPath: string
   name: string
 }
 interface TabsState {
@@ -40,7 +40,7 @@ export const useTabsStore = defineStore({
      */
     addTabs(route: RouteItem) {
       if (WHITE_ROUTE_LIST.includes(route.name)) return false
-      const isExists = this.tabs.some((tab) => tab.path === route.path)
+      const isExists = this.tabs.some((tab) => tab.fullPath === route.fullPath)
       if (!isExists) {
         this.tabs.push(route)
       }
@@ -51,7 +51,9 @@ export const useTabsStore = defineStore({
      * @param route
      */
     closeCurrentTab(route: RouteItem) {
-      const index = this.tabs.findIndex((tab) => tab.path === route.path)
+      const index = this.tabs.findIndex(
+        (tab) => tab.fullPath === route.fullPath
+      )
       this.tabs.splice(index, 1)
     },
     /**
@@ -59,7 +61,9 @@ export const useTabsStore = defineStore({
      * @param route
      */
     closeLeftTabs(route: RouteItem) {
-      const index = this.tabs.findIndex((tab) => tab.path === route.path)
+      const index = this.tabs.findIndex(
+        (tab) => tab.fullPath === route.fullPath
+      )
       this.tabs.splice(0, index)
     },
     /**
@@ -67,7 +71,9 @@ export const useTabsStore = defineStore({
      * @param route
      */
     closeRightTabs(route: RouteItem) {
-      const index = this.tabs.findIndex((tab) => tab.path === route.path)
+      const index = this.tabs.findIndex(
+        (tab) => tab.fullPath === route.fullPath
+      )
       this.tabs.splice(index + 1)
     },
     /**
@@ -75,7 +81,7 @@ export const useTabsStore = defineStore({
      * @param route
      */
     closeOtherTabs(route: RouteItem) {
-      this.tabs = this.tabs.filter((tab) => tab.path === route.path)
+      this.tabs = this.tabs.filter((tab) => tab.fullPath === route.fullPath)
     },
     /**
      * 清楚全部标签以及 本地缓存的标签
